@@ -1,0 +1,37 @@
+import re
+
+lines = list.splitlines()
+transformation= {"one":"1", "two":"2", "three":"3", "four":"4", "five":"5", "six":"6", "seven":"7", "eight":"8", "nine":"9"}
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+listOfNumbers= []
+tempList = []
+
+for line in lines[899: 902]:
+    regex = '|'.join(map(re.escape, numbers))
+    matches = re.findall(regex, line)
+
+
+    for index, item in enumerate(matches):
+        if item.isdigit():
+            continue
+        else:
+            for keys in transformation.keys():
+                matches[index] = transformation[item]
+    listOfNumbers.append("".join(matches))
+
+
+for number in listOfNumbers:
+    number = str(number)
+    if len(number) >= 3:
+        tempList.append(number[0]+number[-1])
+    elif len(number) == 2:
+        tempList.append(number)
+    elif len(number) == 1:
+        tempList.append(number*2)
+    else:
+        print("ERROR")
+
+total = 0
+for final in tempList:
+    total = int(final) + total
+print(total)
