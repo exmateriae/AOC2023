@@ -1,0 +1,31 @@
+import regex, re
+
+lines = list.splitlines()
+transformation= {"one":"1", "two":"2", "three":"3", "four":"4", "five":"5", "six":"6", "seven":"7", "eight":"8", "nine":"9"}
+numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+listOfNumbers= []
+tempList = []
+
+for line in lines[0:]:
+    regx = '|'.join(map(re.escape, numbers))
+    matches = regex.findall(regx, line, overlapped = True)
+    print(matches)
+
+    for index, item in enumerate(matches):
+        if item.isdigit():
+            continue
+        else:
+            matches[index] = transformation[item]
+    listOfNumbers.append("".join(matches))
+print(listOfNumbers)
+
+for number in listOfNumbers:
+    number = str(number)
+    tempList.append(number[0]+number[-1])
+
+
+print(tempList)
+total = 0
+for final in tempList:
+    total = int(final) + total
+print(total)
